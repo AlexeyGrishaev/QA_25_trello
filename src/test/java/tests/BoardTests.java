@@ -24,7 +24,7 @@ public class BoardTests extends TestBase{
         app.getHelperBoard().createNewBoard("sdsdds");
         //Assert.assertTrue(app.getHelperBoard().isAttributeDisabled());
         Assert.assertTrue(app.getHelperBoard().isElementPresent_textBoardTitleRequired());
-        System.out.println("====================================================");
+        System.out.println("====================================================");//s
     }
  
     @Test

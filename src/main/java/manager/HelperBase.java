@@ -19,6 +19,10 @@ public class HelperBase {
         element.clear();
         element.sendKeys(text);
     }
+    public void clickBase(By locator){
+        WebElement element = findElementBase(locator);
+        element.click();
+    }
     public boolean isElementPresent(By locator){return !driver.findElements(locator).isEmpty();}
     public void pause(int time){
         try {

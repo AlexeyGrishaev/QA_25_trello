@@ -2,6 +2,7 @@ package tests;
 
 import manager.RandomData;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -39,9 +40,9 @@ public class BoardTests extends TestBase{
             Assert.fail("board didn't create");
         }
     }
-    //    @AfterMethod
-//    public void afterTest(){
-//        if(app.getHelperBoard().isAttributeDisabled())
-//            app.getHelperBoard().closeCreateBoardForm();
-//    }
+        @AfterMethod
+    public void afterTest(){
+        if(app.getHelperBoard().isAttributeDisabled())
+            app.getHelperBoard().closeCreateBoardForm();
+    }
 }

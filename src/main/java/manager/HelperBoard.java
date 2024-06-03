@@ -21,9 +21,11 @@ public class HelperBoard extends HelperBase {
     By textBoardTitleRequired = By.xpath("//p[text()='Board title is required']");
     By btnDelete = By.xpath("//button[@data-testid='close-board-delete-board-button']");
     By popUpMessageBoardDeleted = By.xpath("//span[@class='QMKgZFIlTLiEJN']");
+    By btnCloseCreateBoard = By.xpath("//button[@data-testid='popover-close']");
+
     public void createNewBoard(String boardTitle) {
         clickBase(btnCreateNewBoard);
-        pause(3);
+        pause(5);
         typeBase(inputBoardTitle, "QA-" + boardTitle);
         clickBase(btnCreateSubmit);
 
@@ -46,6 +48,9 @@ public class HelperBoard extends HelperBase {
     }
     public boolean isElementPresent_textBoardTitleRequired() {
         return isElementPresent(textBoardTitleRequired);
+    }
+    public void closeCreateBoardForm(){
+        clickBase(btnCloseCreateBoard);
     }
     public boolean isAttributeDisabled() {
         WebElement element = driver.findElement(btnCreateSubmit);

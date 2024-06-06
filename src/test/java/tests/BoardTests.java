@@ -22,12 +22,13 @@ public class BoardTests extends TestBase{
     }
     @Test
     public void createNewBoardNegativeTest(){
-        app.getHelperBoard().createNewBoard("sdsdds");
-        //Assert.assertTrue(app.getHelperBoard().isAttributeDisabled());
+        app.getHelperBoard().createNewBoard("");
+//        Assert.assertTrue(app.getHelperBoard().isAttributeDisabled());
         Assert.assertTrue(app.getHelperBoard().isElementPresent_textBoardTitleRequired());
-        System.out.println("====================================================");//s
+        System.out.println("====================================================");
     }
- 
+
+
     @Test
     public void deleteBoardPositiveTest(){
         String boardTitle = RandomData.randomString(7);
@@ -40,9 +41,9 @@ public class BoardTests extends TestBase{
             Assert.fail("board didn't create");
         }
     }
-        @AfterMethod
-    public void afterTest(){
-        if(app.getHelperBoard().isAttributeDisabled())
-            app.getHelperBoard().closeCreateBoardForm();
-    }
+//        @AfterMethod
+//    public void afterTest(){
+//        if(app.getHelperBoard().isAttributeDisabled())
+//            app.getHelperBoard().closeCreateBoardForm();
+//    }
 }

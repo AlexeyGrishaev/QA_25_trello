@@ -1,13 +1,21 @@
 package tests;
 
+import dto.BoardDTO;
 import manager.RandomData;
+import manager.TakeScreenShot;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.Method;
+import java.util.List;
+
 public class BoardTests extends TestBase{
+    Logger logger = LoggerFactory.getLogger(BoardTests.class);
     @BeforeClass
     public void login (){
         app.getHelperUser().login(user);
@@ -15,14 +23,24 @@ public class BoardTests extends TestBase{
     }
 
     @Test
-    public void createNewBoardPositiveTest(){
+    public void createNewBoardPositiveTest(Method method){
+
         String boardTitle  = RandomData.randomString(7);
-        app.getHelperBoard().createNewBoard(boardTitle);
-        Assert.assertTrue(app.getHelperBoard().isTextInElementEquals_boardTitle("QA-"+boardTitle));
+        BoardDTO board = BoardDTO.builder()
+                .boardTitle("QA"+boardTitle)
+                .build();
+        logger.info("start test " +method.getName()+" boardtitle --> "+board.getBoardTitle());
+        app.getHelperBoard().createNewBoard(board);
+        Assert.assertTrue(app.getHelperBoard().isTextInElementEquals_boardTitle(board.getBoardTitle()));
     }
     @Test
+
     public void createNewBoardNegativeTest(){
-        app.getHelperBoard().createNewBoard("");
+        BoardDTO board = BoardDTO.builder()
+                .boardTitle("")
+                .build();
+        app.getHelperBoard().createNewBoard(board);
+        app.getHelperBoard().createScreenShot();
 //        Assert.assertTrue(app.getHelperBoard().isAttributeDisabled());
         Assert.assertTrue(app.getHelperBoard().isElementPresent_textBoardTitleRequired());
         System.out.println("====================================================");
@@ -30,13 +48,19 @@ public class BoardTests extends TestBase{
 
 
     @Test
-    public void deleteBoardPositiveTest(){
+    public void deleteBoardPositiveTest(Method method){
         String boardTitle = RandomData.randomString(7);
-        app.getHelperBoard().createNewBoard("DEL-"+boardTitle);
-        if(app.getHelperBoard().isTextInElementEquals_boardTitle("DEL-"+boardTitle)){
-            app.getHelperBoard().deleteBoard("DEL-"+boardTitle);
+        BoardDTO board = BoardDTO.builder()
+                .boardTitle("DEL"+boardTitle)
+                .build();
+
+        app.getHelperBoard().createNewBoard(board);
+        if(app.getHelperBoard().isTextInElementEquals_boardTitle(board.getBoardTitle())){
+            logger.info("start test " +method.getName()+" boardtitle --> "+board.getBoardTitle());
+            app.getHelperBoard().deleteBoard();
             Assert.assertTrue(app.getHelperBoard().isTextInElementPresent_BoardDeleted());
         }else{
+            logger.info("in test "+method.getName()+" board didn't create");
             System.out.println("board didn't create");
             Assert.fail("board didn't create");
         }

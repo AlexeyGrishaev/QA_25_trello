@@ -40,7 +40,7 @@ public class HelperBoard extends HelperBase {
         pause(3);
         typeBase(inputBoardTitle, board.getBoardTitle());
         clickBase(btnCreateSubmit);
-        TakeScreenShot.takeScreenShot((TakesScreenshot) driver);
+
     }
 
     public boolean isTextInElementEquals_boardTitle(String text) {

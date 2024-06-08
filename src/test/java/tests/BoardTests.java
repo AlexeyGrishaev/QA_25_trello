@@ -2,19 +2,19 @@ package tests;
 
 import dto.BoardDTO;
 import manager.RandomData;
+import manager.RetryAnalayzer;
 import manager.TakeScreenShot;
+import manager.TestNGListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 import java.util.List;
-
+@Listeners(TestNGListener.class)
 public class BoardTests extends TestBase{
+
     Logger logger = LoggerFactory.getLogger(BoardTests.class);
     @BeforeClass
     public void login (){
@@ -33,11 +33,11 @@ public class BoardTests extends TestBase{
         app.getHelperBoard().createNewBoard(board);
         Assert.assertTrue(app.getHelperBoard().isTextInElementEquals_boardTitle(board.getBoardTitle()));
     }
-    @Test
 
+    @Test(retryAnalyzer = RetryAnalayzer.class)
     public void createNewBoardNegativeTest(){
         BoardDTO board = BoardDTO.builder()
-                .boardTitle("")
+                .boardTitle("111")
                 .build();
         app.getHelperBoard().createNewBoard(board);
         app.getHelperBoard().createScreenShot();

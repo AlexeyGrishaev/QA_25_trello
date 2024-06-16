@@ -45,6 +45,8 @@ public class HelperBase {
             Thread.sleep(1000L *time);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
+            //sss
+
         }
     }
     public boolean isTextInElementEquals(By locator, String text){
